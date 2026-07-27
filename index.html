@@ -1,163 +1,163 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>情侣双向守护 | 异地陪伴工具</title>
-    <link rel="stylesheet" href="./css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>情侣双向守护 | 异地陪伴工具</title>
+  <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
 <div class="page-wrap">
-    <h1 class="page-title">全部功能</h1>
-    <div class="heart-decor"></div>
+  <h1 class="page-title">全部功能</h1>
+  <div class="heart-decor"></div>
 
-    <!-- 情侣云端同步绑定模块 -->
-    <div class="func-block" style="background:#f0ecff;margin-bottom:20px;">
-        <h2 class="block-title purple-title">🔗 情侣云端同步绑定</h2>
-        <div class="form-row" style="margin-bottom:15px;">
-            <label>输入情侣配对码（两人必须一致才能同步数据）</label>
-            <input type="text" id="pairCodeInput" placeholder="自定义一串字母数字，发给另一半填写相同码">
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-            <button class="submit-btn" id="bindPairBtn" style="background:#7b3fd8;">绑定开启云端双向同步</button>
-            <button class="submit-btn" id="syncAllBtn" style="background:#36b989;">一键拉取云端全部数据</button>
-        </div>
-        <p style="margin-top:12px;font-size:13px;color:#666;">提示：绑定配对码后，日记/纪念日/定位/相册会两台设备实时自动同步</p>
+  <!-- 云端同步绑定模块 -->
+  <div class="func-block" style="background:#f0ecff;">
+    <h2 class="block-title purple-title">🔗 情侣云端同步绑定</h2>
+    <div class="form-row">
+      <label>情侣配对码（两人填写相同码即可同步数据）</label>
+      <input type="text" id="pairCodeInput" placeholder="自定义字母数字发给另一半">
     </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <button class="submit-btn" id="bindPairBtn" style="background:#7b3fd8;">绑定开启双向同步</button>
+      <button class="submit-btn" id="syncAllBtn" style="background:#36b989;">一键同步云端全部数据</button>
+    </div>
+    <p style="margin-top:14px;font-size:13px;color:#666;">绑定后日记、相册、定位、纪念日实时同步给另一半</p>
+  </div>
 
-    <!-- 常用功能模块 -->
-    <section class="func-block">
-        <h2 class="block-title">
-            <span class="heart-icon">❤</span>常用功能
-        </h2>
-        <div class="grid-2">
-            <div class="func-card pink-card">
-                <img src="./img/chat.png" alt="亲密互动">
-                <span>亲密互动</span>
-            </div>
-            <div class="func-card yellow-card">
-                <img src="./img/report.png" alt="使用报告">
-                <span>使用报告</span>
-            </div>
-            <div class="func-card purple-card">
-                <img src="./img/screen.png" alt="同屏查看">
-                <span>同屏查看</span>
-            </div>
-            <div class="func-card coral-card">
-                <img src="./img/camera.png" alt="连续录像">
-                <span>连续录像</span>
-            </div>
-        </div>
-    </section>
+  <!-- 常用功能 -->
+  <section class="func-block">
+    <h2 class="block-title">
+      <span class="heart-icon">❤</span>常用功能
+    </h2>
+    <div class="grid-2">
+      <div class="func-card pink-card">
+        <img src="./img/chat.png" alt="亲密互动">
+        <span>亲密互动</span>
+      </div>
+      <div class="func-card yellow-card">
+        <img src="./img/report.png" alt="使用报告">
+        <span>使用报告</span>
+      </div>
+      <div class="func-card purple-card">
+        <img src="./img/screen.png" alt="同屏查看">
+        <span>同屏查看</span>
+      </div>
+      <div class="func-card coral-card">
+        <img src="./img/camera.png" alt="连续录像">
+        <span>连续录像</span>
+      </div>
+    </div>
+  </section>
 
-    <!-- 报告与轨迹 -->
-    <section class="func-block">
-        <h2 class="block-title blue-title">
-            <span class="loc-icon">📍</span>报告与轨迹
-        </h2>
-        <div class="grid-4">
-            <div class="mini-card">
-                <div class="icon-box purple-bg"></div>
-                <p>AI报告</p>
-            </div>
-            <div class="mini-card">
-                <div class="icon-box green-bg"></div>
-                <p>日常回播</p>
-            </div>
-            <div class="mini-card">
-                <div class="icon-box gold-bg"></div>
-                <p>通知轨迹</p>
-            </div>
-            <div class="mini-card">
-                <div class="icon-box sky-bg"></div>
-                <p>应用记录</p>
-            </div>
-            <div class="mini-card full-width">
-                <div class="icon-box red-bg"></div>
-                <p>付款记录</p>
-            </div>
-            <!-- 新增定位轨迹跳转卡片 -->
-            <div class="mini-card jump-link" data-href="location.html">
-                <div class="icon-box sky-bg"></div>
-                <p>定位轨迹</p>
-            </div>
-        </div>
-    </section>
+  <!-- 报告与轨迹 -->
+  <section class="func-block">
+    <h2 class="block-title blue-title">
+      <span class="loc-icon">📍</span>报告与轨迹
+    </h2>
+    <div class="grid-4">
+      <div class="mini-card">
+        <div class="icon-box purple-bg"></div>
+        <p>AI报告</p>
+      </div>
+      <div class="mini-card">
+        <div class="icon-box green-bg"></div>
+        <p>日常回播</p>
+      </div>
+      <div class="mini-card">
+        <div class="icon-box gold-bg"></div>
+        <p>通知轨迹</p>
+      </div>
+      <div class="mini-card">
+        <div class="icon-box sky-bg"></div>
+        <p>应用记录</p>
+      </div>
+      <div class="mini-card full-width">
+        <div class="icon-box red-bg"></div>
+        <p>付款记录</p>
+      </div>
+      <!-- 定位轨迹跳转 -->
+      <div class="mini-card jump-link" data-href="location.html">
+        <div class="icon-box sky-bg"></div>
+        <p>定位轨迹</p>
+      </div>
+    </div>
+  </section>
 
-    <!-- 实时守护 -->
-    <section class="func-block">
-        <h2 class="block-title green-title">
-            <span class="shield-icon">🛡️</span>实时守护
-        </h2>
-        <div class="grid-4">
-            <div class="mini-card">
-                <div class="icon-box blue2-bg"></div>
-                <p>高级同屏</p>
-            </div>
-            <!-- 新增远程同屏WebRTC跳转卡片 -->
-            <div class="mini-card jump-link" data-href="webrtc.html">
-                <div class="icon-box blue2-bg"></div>
-                <p>远程同屏</p>
-            </div>
-            <div class="mini-card">
-                <div class="icon-box green2-bg"></div>
-                <p>远程拍照</p>
-            </div>
-            <div class="mini-card">
-                <div class="icon-box purple2-bg"></div>
-                <p>连续录音</p>
-            </div>
-            <div class="mini-card">
-                <div class="icon-box orange-bg"></div>
-                <p>远程录音</p>
-            </div>
-        </div>
-    </section>
+  <!-- 实时守护 -->
+  <section class="func-block">
+    <h2 class="block-title green-title">
+      <span class="shield-icon">🛡️</span>实时守护
+    </h2>
+    <div class="grid-4">
+      <div class="mini-card">
+        <div class="icon-box blue2-bg"></div>
+        <p>高级同屏</p>
+      </div>
+      <!-- 远程同屏跳转 -->
+      <div class="mini-card jump-link" data-href="webrtc.html">
+        <div class="icon-box blue2-bg"></div>
+        <p>远程同屏</p>
+      </div>
+      <div class="mini-card">
+        <div class="icon-box green2-bg"></div>
+        <p>远程拍照</p>
+      </div>
+      <div class="mini-card">
+        <div class="icon-box purple2-bg"></div>
+        <p>连续录音</p>
+      </div>
+      <div class="mini-card">
+        <div class="icon-box orange-bg"></div>
+        <p>远程录音</p>
+      </div>
+    </div>
+  </section>
 
-    <!-- 情侣空间 -->
-    <section class="func-block">
-        <h2 class="block-title pink-title">
-            <span class="heart-icon">❤</span>情侣空间
-        </h2>
-        <div class="grid-4">
-            <div class="mini-card jump-link" data-href="diary.html">
-                <div class="icon-box diary-bg"></div>
-                <p>情侣日记</p>
-            </div>
-            <div class="mini-card jump-link" data-href="memory.html">
-                <div class="icon-box cal-bg"></div>
-                <p>纪念日</p>
-            </div>
-            <div class="mini-card jump-link" data-href="album.html">
-                <div class="icon-box ai-bg"></div>
-                <p>AI情侣合照</p>
-            </div>
-            <div class="mini-card jump-link" data-href="album.html">
-                <div class="icon-box pic-bg"></div>
-                <p>情侣相册</p>
-            </div>
-        </div>
-    </section>
+  <!-- 情侣空间 -->
+  <section class="func-block">
+    <h2 class="block-title pink-title">
+      <span class="heart-icon">❤</span>情侣空间
+    </h2>
+    <div class="grid-4">
+      <div class="mini-card jump-link" data-href="diary.html">
+        <div class="icon-box diary-bg"></div>
+        <p>情侣日记</p>
+      </div>
+      <div class="mini-card jump-link" data-href="memory.html">
+        <div class="icon-box cal-bg"></div>
+        <p>纪念日</p>
+      </div>
+      <div class="mini-card jump-link" data-href="album.html">
+        <div class="icon-box ai-bg"></div>
+        <p>AI情侣合照</p>
+      </div>
+      <div class="mini-card jump-link" data-href="album.html">
+        <div class="icon-box pic-bg"></div>
+        <p>情侣相册</p>
+      </div>
+    </div>
+  </section>
 
-    <!-- 底部导航栏 -->
-    <nav class="bottom-nav">
-        <div class="nav-item active">
-            <div class="nav-icon home-icon"></div>
-            <span>首页</span>
-        </div>
-        <div class="nav-item">
-            <div class="nav-icon loc-nav-icon"></div>
-            <span>定位</span>
-        </div>
-        <div class="nav-item">
-            <div class="nav-icon func-nav-icon"></div>
-            <span>功能</span>
-        </div>
-        <div class="nav-item">
-            <div class="nav-icon mine-nav-icon"></div>
-            <span>我的</span>
-        </div>
-    </nav>
+  <!-- 底部导航 -->
+  <nav class="bottom-nav">
+    <div class="nav-item active">
+      <div class="nav-icon home-icon"></div>
+      <span>首页</span>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon loc-nav-icon"></div>
+      <span>定位</span>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon func-nav-icon"></div>
+      <span>功能</span>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon mine-nav-icon"></div>
+      <span>我的</span>
+    </div>
+  </nav>
 </div>
 
 <script type="module" src="./js/main.js"></script>
