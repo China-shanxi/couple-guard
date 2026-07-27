@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>双向守护 | 异地情侣陪伴小屋</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 头部情侣信息 -->
+        <header class="couple-header">
+            <h1>💌 双向陪伴守护屋</h1>
+            <div class="love-day">
+                我们在一起：<span id="loveDays">0</span> 天
+            </div>
+            <div class="meet-count">
+                距离下次见面：<span id="meetDay">0</span> 天
+            </div>
+        </header>
+
+        <!-- 基础信息设置弹窗 -->
+        <div class="set-modal" id="setModal">
+            <div class="modal-box">
+                <h3>情侣基础设置（仅首次填写）</h3>
+                <div class="input-item">
+                    <label>你的名字</label>
+                    <input type="text" id="nameA" placeholder="输入你的昵称">
+                </div>
+                <div class="input-item">
+                    <label>对方名字</label>
+                    <input type="text" id="nameB" placeholder="输入TA的昵称">
+                </div>
+                <div class="input-item">
+                    <label>恋爱起始日期</label>
+                    <input type="date" id="startLove">
+                </div>
+                <div class="input-item">
+                    <label>下次见面日期</label>
+                    <input type="date" id="meetDate">
+                </div>
+                <button class="save-btn" id="saveSet">保存信息</button>
+            </div>
+        </div>
+
+        <!-- 双人状态区域 -->
+        <section class="status-box">
+            <div class="person-card" id="cardA">
+                <h2 id="showNameA">我</h2>
+                <p>今日想念次数：<span class="miss-num" id="missA">0</span></p>
+                <p>今日心情：<span id="moodA">未打卡</span></p>
+                <button class="miss-btn" data-user="A">想念TA +1</button>
+                <button class="mood-btn" data-user="A">打卡今日心情</button>
+            </div>
+            <div class="heart-icon">❤️</div>
+            <div class="person-card" id="cardB">
+                <h2 id="showNameB">TA</h2>
+                <p>今日想念次数：<span class="miss-num" id="missB">0</span></p>
+                <p>今日心情：<span id="moodB">未打卡</span></p>
+                <button class="miss-btn" data-user="B">想念我 +1</button>
+                <button class="mood-btn" data-user="B">打卡今日心情</button>
+            </div>
+        </section>
+
+        <!-- 悄悄话留言板 -->
+        <section class="message-box">
+            <h2>📝 双向悄悄话信箱</h2>
+            <div class="send-area">
+                <textarea id="msgInput" placeholder="写下想对TA说的话..."></textarea>
+                <button id="sendMsg">发送悄悄话</button>
+            </div>
+            <div class="msg-list" id="msgList"></div>
+        </section>
+    </div>
+
+    <!-- 心情选择弹窗 -->
+    <div class="mood-modal" id="moodModal">
+        <div class="modal-box">
+            <h3>选择今日心情</h3>
+            <div class="mood-select">
+                <span class="mood-item" data-val="开心🥰">开心🥰</span>
+                <span class="mood-item" data-val="平淡😌">平淡😌</span>
+                <span class="mood-item" data-val="委屈🥺">委屈🥺</span>
+                <span class="mood-item" data-val="想你💌">超级想你💌</span>
+            </div>
+            <button class="close-modal">关闭</button>
+        </div>
+    </div>
+
+    <script src="./js/main.js"></script>
+</body>
+</html>
