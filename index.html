@@ -6,16 +6,39 @@
     <title>双向守护 | 异地情侣陪伴小屋</title>
     <link rel="stylesheet" href="./css/style.css">
 </head>
-<body>
+<body class="skin-pink">
+    <!-- 皮肤切换悬浮按钮 -->
+    <div class="skin-switch-btn" id="skinSwitchBtn">🎨 切换主题</div>
+    <div class="skin-panel hide" id="skinPanel">
+        <h4>选择情侣皮肤</h4>
+        <div class="skin-item" data-skin="skin-pink">温柔粉</div>
+        <div class="skin-item" data-skin="skin-blue">治愈蓝</div>
+        <div class="skin-item" data-skin="skin-purple">梦幻紫</div>
+        <div class="skin-item" data-skin="skin-warm">暖橘色</div>
+        <button class="close-skin">关闭</button>
+    </div>
+
     <div class="container">
         <!-- 头部情侣信息 -->
         <header class="couple-header">
+            <div class="online-status-wrap">
+                <span id="selfOnline">🟢 我在线</span>
+                <span id="partnerOnline">⚪ TA离线</span>
+                <select id="onlineSelect">
+                    <option value="online">在线</option>
+                    <option value="offline">离开</option>
+                </select>
+            </div>
             <h1>💌 双向陪伴守护屋</h1>
             <div class="love-day">
                 我们在一起：<span id="loveDays">0</span> 天
             </div>
             <div class="meet-count">
                 距离下次见面：<span id="meetDay">0</span> 天
+            </div>
+            <div class="distance-box">
+                异地实时距离：<span id="distanceText">未获取定位</span>
+                <button id="getLocationBtn">获取双方定位计算距离</button>
             </div>
         </header>
 
@@ -38,6 +61,23 @@
                 <div class="input-item">
                     <label>下次见面日期</label>
                     <input type="date" id="meetDate">
+                </div>
+                <!-- 定位坐标存储 -->
+                <div class="input-item">
+                    <label>我的定位经度</label>
+                    <input type="text" id="myLng" placeholder="自动获取">
+                </div>
+                <div class="input-item">
+                    <label>我的定位纬度</label>
+                    <input type="text" id="myLat" placeholder="自动获取">
+                </div>
+                <div class="input-item">
+                    <label>对方定位经度</label>
+                    <input type="text" id="taLng" placeholder="让对方填写">
+                </div>
+                <div class="input-item">
+                    <label>对方定位纬度</label>
+                    <input type="text" id="taLat" placeholder="让对方填写">
                 </div>
                 <button class="save-btn" id="saveSet">保存信息</button>
             </div>
@@ -62,9 +102,33 @@
             </div>
         </section>
 
-        <!-- 悄悄话留言板 -->
+        <!-- 多组纪念日模块 -->
+        <section class="anniversary-box">
+            <h2>📅 情侣纪念日记录</h2>
+            <div class="add-anniversary">
+                <input type="text" id="anniName" placeholder="纪念日名称（如百天、生日）">
+                <input type="date" id="anniDate">
+                <button id="addAnniBtn">新增纪念日</button>
+            </div>
+            <div class="anni-list" id="anniList"></div>
+        </section>
+
+        <!-- 情侣相册上传模块 -->
+        <section class="album-box">
+            <h2>📷 情侣专属相册</h2>
+            <div class="upload-area">
+                <label for="imgUpload">点击上传合照</label>
+                <input type="file" id="imgUpload" accept="image/*" multiple>
+            </div>
+            <div class="album-grid" id="albumGrid"></div>
+        </section>
+
+        <!-- 悄悄话留言板（新增删除、清空） -->
         <section class="message-box">
-            <h2>📝 双向悄悄话信箱</h2>
+            <div class="msg-top-bar">
+                <h2>📝 双向悄悄话信箱</h2>
+                <button id="clearAllMsgBtn">一键清空全部留言</button>
+            </div>
             <div class="send-area">
                 <textarea id="msgInput" placeholder="写下想对TA说的话..."></textarea>
                 <button id="sendMsg">发送悄悄话</button>
@@ -86,7 +150,5 @@
             <button class="close-modal">关闭</button>
         </div>
     </div>
-
-    <script src="./js/main.js"></script>
 </body>
 </html>
