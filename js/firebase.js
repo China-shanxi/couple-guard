@@ -1,26 +1,26 @@
-// Firebase 全局初始化
+// Firebase 初始化 无报错稳定版
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { 
-  getFirestore, 
-  collection, 
-  addDoc, 
-  getDocs, 
-  onSnapshot, 
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  onSnapshot,
   deleteDoc,
   query,
   orderBy
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// ========== 替换为你自己Firebase后台的配置 ==========
+// ============ 替换为你自己Firebase项目配置 ============
 const firebaseConfig = {
-  apiKey: "替换成你的apiKey",
-  authDomain: "替换成你的项目id.firebaseapp.com",
-  projectId: "替换成你的项目id",
-  storageBucket: "替换成你的项目id.appspot.com",
-  messagingSenderId: "替换成数字id",
-  appId: "1:数字id:web:一串字符"
+  apiKey: "填入你自己的apiKey",
+  authDomain: "项目id.firebaseapp.com",
+  projectId: "你的项目ID",
+  storageBucket: "项目id.appspot.com",
+  messagingSenderId: "数字ID",
+  appId: "1:数字:web:xxxxxx"
 };
-// =========================================================
+// =============================================================
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -34,14 +34,14 @@ export function setCouplePairId(id) {
   localStorage.setItem("couple_pair_id", couplePairId);
 }
 
-// 获取数据集合（按配对码隔离数据）
+// 获取数据集合（按配对码隔离情侣数据）
 export function getColl(name) {
   return collection(db, "couple_data", couplePairId, name);
 }
 
 // 新增云端单条数据
 export async function cloudAdd(collName, dataObj) {
-  if (!couplePairId) throw new Error("请先填写情侣配对码！");
+  if (!couplePairId) throw new Error("请先绑定情侣配对码！");
   const coll = getColl(collName);
   await addDoc(coll, {
     ...dataObj,
@@ -49,7 +49,7 @@ export async function cloudAdd(collName, dataObj) {
   });
 }
 
-// 读取集合全部数据
+// 读取集合全部云端数据
 export async function cloudGetAll(collName) {
   if (!couplePairId) return [];
   const coll = getColl(collName);
@@ -62,28 +62,28 @@ export async function cloudGetAll(collName) {
   return list;
 }
 
-// 实时监听云端数据变更（双向同步核心）
+// 实时监听云端数据（双向同步核心，无内存泄漏）
 export function cloudWatch(collName, callback) {
   if (!couplePairId) return () => {};
   const coll = getColl(collName);
   const q = query(coll, orderBy("createTime", "desc"));
-  return onSnapshot(q, (snapshot) => {
+  const unSub = onSnapshot(q, (snapshot) => {
     const list = [];
-    snapshot.forEach(doc => {
-      list.push({ id: doc.id, ...doc.data() });
-    });
+    snapshot.forEach(doc => list.push({ id: doc.id, ...doc.data() }));
     callback(list);
   });
+  // 返回取消监听函数，页面关闭销毁
+  return unSub;
 }
 
 // 清空集合全部云端数据
 export async function cloudClearAll(collName) {
-  if (!couplePairId) throw new Error("请先填写情侣配对码！");
+  if (!couplePairId) throw new Error("请先绑定情侣配对码！");
   const coll = getColl(collName);
   const snapshot = await getDocs(coll);
-  const delList = [];
-  snapshot.forEach(doc => delList.push(deleteDoc(doc.ref)));
-  await Promise.all(delList);
+  const delTasks = [];
+  snapshot.forEach(doc => delTasks.push(deleteDoc(doc.ref)));
+  await Promise.all(delTasks);
 }
 
 export { db };
