@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>定位轨迹 | 情侣双向守护</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <style>
+        .loc-box{
+            background:#fff;
+            border-radius:16px;
+            padding:20px;
+            margin-bottom:20px;
+        }
+        .loc-btn{
+            width:100%;
+            padding:14px;
+            background:#599aff;
+            color:#fff;
+            border:none;
+            border-radius:10px;
+            font-size:17px;
+            margin-bottom:15px;
+        }
+        .loc-info{
+            padding:15px;
+            background:#f0f7ff;
+            border-radius:10px;
+            margin-bottom:15px;
+            line-height:1.8;
+        }
+        .record-item{
+            background:#fff;
+            padding:15px;
+            border-radius:12px;
+            margin-bottom:12px;
+        }
+        .record-time{
+            color:#999;
+            font-size:13px;
+            margin-bottom:6px;
+        }
+        .clear-btn{
+            width:100%;
+            padding:12px;
+            background:#ff6b6b;
+            color:#fff;
+            border:none;
+            border-radius:10px;
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrap">
+    <h1 class="page-title">定位轨迹记录</h1>
+    <div class="loc-box">
+        <button class="loc-btn" id="getLocBtn">获取当前位置并保存</button>
+        <div class="loc-info" id="locInfo">
+            <p>点击上方按钮获取你的经纬度位置</p>
+        </div>
+    </div>
+    <h2 style="margin-bottom:12px;font-size:18px;color:#6478e8;">历史位置记录</h2>
+    <div id="locRecordList"></div>
+    <button class="clear-btn" id="clearLocBtn" style="margin-top:20px;">清空全部位置记录</button>
+</div>
+
+<script type="module">
+    import { getLocRecords, addLocRecord, clearLocRecords, watchLocationCloud } from "./js/store.js";
+    const getLocBtn = document.getElementById("getLocBtn");
+    const locInfo = document.getElementById("locInfo");
+    const locRecordList = document.getElementById("locRecordList");
+    const clearLocBtn = document.getElementById("clearLocBtn");
+
+    function renderLocRecord(){
+        const list = getLocRecords();
+        if(list.length === 0){
+            locRecordList.innerHTML = "<p style='text-align:center;color:#777'>暂无位置记录，获取位置后自动保存</p>";
+            return;
+        }
+        let html = "";
+        list.forEach(item=>{
+            html += `
+            <div class="record-item">
+                <div class="record-time">${item.time}</div>
+                <p>纬度：${item.latitude}</p>
+                <p>经度：${item.longitude}</p>
+            </div>
+            `
+        })
+        locRecordList.innerHTML = html;
+    }
+    renderLocRecord();
+
+    // 云端实时监听位置记录
+    const unWatch = watchLocationCloud(() => renderLocRecord());
+    window.addEventListener("beforeunload", () => unWatch());
+
+    getLocBtn.addEventListener("click",()=>{
+        if(!navigator.geolocation){
+            locInfo.innerHTML = "<p style='color:red'>你的浏览器不支持定位功能，请更换浏览器</p>";
+            return;
+        }
+        locInfo.innerHTML = "<p>正在请求位置权限，请允许定位授权...</p>";
+        navigator.geolocation.getCurrentPosition(
+            async (position)=>{
+                const lat = position.coords.latitude.toFixed(6);
+                const lng = position.coords.longitude.toFixed(6);
+                locInfo.innerHTML = `
+                <p><strong>获取位置成功！</strong></p>
+                <p>纬度：${lat}</p>
+                <p>经度：${lng}</p>
+                `;
+                await addLocRecord(lat,lng);
+                alert("当前位置已保存并同步云端！");
+            },
+            (err)=>{
+                let errMsg = "";
+                switch(err.code){
+                    case 1: errMsg = "你拒绝了定位权限，请手动开启定位";break;
+                    case 2: errMsg = "无法获取位置信号，GPS/网络定位失败";break;
+                    case 3: errMsg = "定位请求超时";break;
+                    default: errMsg = "定位未知错误";
+                }
+                locInfo.innerHTML = `<p style="color:red">定位失败：${errMsg}</p>`;
+            },
+            {enableHighAccuracy:true,timeout:10000,maximumAge:0}
+        )
+    })
+
+    clearLocBtn.addEventListener("click",async ()=>{
+        if(confirm("确定清空所有位置记录？云端数据也会删除！")){
+            await clearLocRecords();
+            renderLocRecord();
+            alert("位置记录已全部清空");
+        }
+    })
+</script>
+</body>
+</html>
