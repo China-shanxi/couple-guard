@@ -1,141 +1,103 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>纪念日 | 情侣双向守护</title>
-    <link rel="stylesheet" href="./css/style.css">
-    <style>
-        .add-memory-box {
-            background: #fff;
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        .form-row {
-            margin-bottom: 15px;
-        }
-        .form-row label {
-            display: block;
-            margin-bottom: 6px;
-            color: #444;
-            font-weight: 500;
-        }
-        .form-row input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ffd6e3;
-            border-radius: 10px;
-            font-size: 16px;
-            outline: none;
-        }
-        .submit-btn {
-            width: 100%;
-            padding: 14px;
-            background: #ff94b4;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 17px;
-        }
-        .memory-item {
-            background: #fff;
-            padding: 18px;
-            border-radius: 12px;
-            margin-bottom: 14px;
-        }
-        .memory-name {
-            font-size: 18px;
-            color: #e86892;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-        .memory-date {
-            color: #777;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-        .count-down-text {
-            font-size: 22px;
-            color: #333;
-            font-weight: 500;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>纪念日 | 情侣双向守护</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <style>
+    .add-memory-box {
+      background: #fff;
+      border-radius: 20px;
+      padding: 24px;
+      margin-bottom: 22px;
+    }
+    .count-down-text {
+      font-size: 22px;
+      color: #333;
+      font-weight: 500;
+    }
+    .count-down-text span {
+      color: #e86892;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
 <div class="page-wrap">
-    <h1 class="page-title">纪念日倒计时</h1>
+  <h1 class="page-title">纪念日倒计时</h1>
 
-    <div class="add-memory-box">
-        <div class="form-row">
-            <label>纪念日名称</label>
-            <input type="text" id="memoryName" placeholder="例如：相恋纪念日、见面日">
-        </div>
-        <div class="form-row">
-            <label>纪念日日期</label>
-            <input type="date" id="memoryDate">
-        </div>
-        <button class="submit-btn" id="saveMemoryBtn">添加纪念日</button>
+  <div class="add-memory-box">
+    <div class="form-row">
+      <label>纪念日名称</label>
+      <input type="text" id="memoryName" placeholder="相恋纪念日 / 见面日 / 生日">
     </div>
+    <div class="form-row">
+      <label>纪念日日期</label>
+      <input type="date" id="memoryDate">
+    </div>
+    <button class="submit-btn" id="saveMemoryBtn" style="background:#ff94b4;margin-top:16px;">添加纪念日并同步云端</button>
+  </div>
 
-    <div id="memoryList"></div>
+  <div id="memoryList"></div>
 </div>
 
 <script type="module">
-    import { getMemoryList, addMemory, watchMemoryCloud } from "./js/store.js";
-    const nameInput = document.getElementById("memoryName");
-    const dateInput = document.getElementById("memoryDate");
-    const saveBtn = document.getElementById("saveMemoryBtn");
-    const listBox = document.getElementById("memoryList");
+  import { getMemoryList, addMemory, watchMemoryCloud } from "./js/store.js";
+  const nameInput = document.getElementById("memoryName");
+  const dateInput = document.getElementById("memoryDate");
+  const saveBtn = document.getElementById("saveMemoryBtn");
+  const listBox = document.getElementById("memoryList");
 
-    function getCountDay(targetDateStr) {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        let target = new Date(targetDateStr);
-        target.setHours(0, 0, 0, 0);
-        if (target < today) {
-            target.setFullYear(today.getFullYear() + 1);
-        }
-        const diff = target - today;
-        return Math.ceil(diff / (1000 * 60 * 60 * 24));
+  // 计算倒计时天数
+  function getCountDay(targetDateStr) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    let target = new Date(targetDateStr);
+    target.setHours(0, 0, 0, 0);
+    if (target < today) target.setFullYear(today.getFullYear() + 1);
+    const diff = target - today;
+    return Math.ceil(diff / (1000 * 60 * 60 * 24));
+  }
+
+  // 渲染纪念日列表
+  function renderMemory() {
+    const list = getMemoryList();
+    if (list.length === 0) {
+      listBox.innerHTML = "<p style='text-align:center;color:#777;margin-top:40px;'>暂无纪念日，添加你们专属的重要日子吧</p>";
+      return;
     }
-
-    function renderMemory() {
-        const list = getMemoryList();
-        let html = "";
-        if (list.length === 0) {
-            listBox.innerHTML = "<p style='text-align:center;color:#777;margin-top:40px;'>暂无纪念日，添加你们的专属日子吧</p>";
-            return;
-        }
-        list.forEach(item => {
-            const day = getCountDay(item.date);
-            html += `
-            <div class="memory-item">
-                <div class="memory-name">${item.name}</div>
-                <div class="memory-date">日期：${item.date}</div>
-                <div class="count-down-text">距离纪念日还有 <span style="color:#e86892;font-weight:bold;">${day}</span> 天</div>
-            </div>
-            `
-        })
-        listBox.innerHTML = html;
-    }
-    renderMemory();
-
-    // 云端实时监听
-    const unWatch = watchMemoryCloud(() => renderMemory());
-    window.addEventListener("beforeunload", () => unWatch());
-
-    saveBtn.addEventListener("click", async () => {
-        const name = nameInput.value.trim();
-        const date = dateInput.value;
-        if (!name) return alert("请输入纪念日名称！");
-        if (!date) return alert("请选择纪念日日期！");
-        await addMemory(name, date);
-        nameInput.value = "";
-        dateInput.value = "";
-        renderMemory();
-        alert("纪念日添加完成，已同步云端！");
+    let html = "";
+    list.forEach(item => {
+      const day = getCountDay(item.date);
+      html += `
+      <div class="memory-item">
+        <div style="font-size:18px;color:#e86892;font-weight:bold;margin-bottom:8px;">${item.name}</div>
+        <div style="color:#777;font-size:14px;margin-bottom:10px;">日期：${item.date}</div>
+        <div class="count-down-text">距离纪念日还有 <span>${day}</span> 天</div>
+      </div>
+      `
     })
+    listBox.innerHTML = html;
+  }
+  renderMemory();
+
+  // 云端实时监听，自动刷新页面
+  const unWatch = watchMemoryCloud(() => renderMemory());
+  window.addEventListener("beforeunload", () => unWatch());
+
+  // 添加纪念日按钮
+  saveBtn.addEventListener("click", async () => {
+    const name = nameInput.value.trim();
+    const date = dateInput.value;
+    if (!name) return alert("请输入纪念日名称！");
+    if (!date) return alert("请选择纪念日日期！");
+    await addMemory(name, date);
+    nameInput.value = "";
+    dateInput.value = "";
+    renderMemory();
+    alert("纪念日添加完成，已同步给另一半！");
+  })
 </script>
 </body>
 </html>
