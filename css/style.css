@@ -1,120 +1,132 @@
+/* 全局统一重置 标准化间距尺寸 解决页面不整齐问题 */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
 }
+
 body {
-    background: #fff5f8;
-    padding-bottom: 90px;
+  background-color: #fff4f9;
+  padding-bottom: 100px;
+  line-height: 1.6;
 }
+
+/* 页面容器 居中固定宽度 统一边距 */
 .page-wrap {
-    max-width: 750px;
-    margin: 0 auto;
-    padding: 20px 16px;
-    position: relative;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  position: relative;
 }
+
+/* 页面大标题统一样式 */
 .page-title {
-    text-align: center;
-    font-size: 28px;
-    color: #222;
-    margin-bottom: 24px;
+  text-align: center;
+  font-size: 26px;
+  color: #222222;
+  margin-bottom: 28px;
+  font-weight: 600;
 }
+
+/* 爱心装饰弱化 不遮挡内容 */
 .heart-decor {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 120px;
-    height: 120px;
-    background: url("./img/big-heart.png") no-repeat;
-    background-size: contain;
-    opacity: 0.8;
-    z-index: 0;
+  position: absolute;
+  top: 8px;
+  right: 4px;
+  width: 100px;
+  height: 100px;
+  background: url("./img/big-heart.png") no-repeat center;
+  background-size: contain;
+  opacity: 0.6;
+  z-index: 0;
+  pointer-events: none;
 }
+
+/* 功能模块卡片 统一尺寸阴影圆角 */
 .func-block {
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 20px 16px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 12px rgba(236, 160, 185, 0.15);
-    position: relative;
-    z-index: 1;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 22px 20px;
+  margin-bottom: 22px;
+  box-shadow: 0 4px 16px rgba(232, 104, 146, 0.12);
+  position: relative;
+  z-index: 1;
 }
+
+/* 模块标题统一 */
 .block-title {
-    font-size: 20px;
-    margin-bottom: 18px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+  font-size: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
 }
-.pink-title {
-    color: #e86892;
-}
-.blue-title {
-    color: #6478e8;
-}
-.green-title {
-    color: #36b989;
-}
-.purple-title {
-    color: #7b3fd8;
-}
+.pink-title { color: #e86892; }
+.blue-title { color: #6478e8; }
+.green-title { color: #36b989; }
+.purple-title { color: #7b3fd8; }
+
+/* 2列网格（常用功能）严格等宽对齐 */
 .grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
 }
 .func-card {
-    padding: 20px 12px;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    font-size: 18px;
+  padding: 24px 12px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  font-size: 17px;
+  font-weight: 500;
 }
-.pink-card {
-    background: #ffe9f0;
-}
-.yellow-card {
-    background: #fff6e0;
-}
-.purple-card {
-    background: #f0ecff;
-}
-.coral-card {
-    background: #ffe3e0;
-}
+.pink-card { background: #ffe9f0; }
+.yellow-card { background: #fff6e0; }
+.purple-card { background: #f0ecff; }
+.coral-card { background: #ffe3e0; }
 .func-card img {
-    width: 64px;
-    height: 64px;
-    object-fit: contain;
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
 }
+
+/* 4列小图标网格 完全对齐 */
 .grid-4 {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
 }
 .mini-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+.mini-card:active {
+  transform: scale(0.94);
 }
 .mini-card.full-width {
-    grid-column: 1 / -1;
-    margin-top: 10px;
+  grid-column: 1 / -1;
+  margin-top: 12px;
 }
 .icon-box {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
 }
 .mini-card p {
-    font-size: 14px;
-    color: #444;
+  font-size: 14px;
+  color: #333;
+  text-align: center;
 }
+
+/* 图标背景色统一规范 */
 .purple-bg { background: #9476f2; }
 .green-bg { background: #46c9a3; }
 .gold-bg { background: #ffc145; }
@@ -128,35 +140,81 @@ body {
 .cal-bg { background: #ffb248; }
 .ai-bg { background: #c08cff; }
 .pic-bg { background: #72b8ff; }
+
+/* 表单输入框通用样式 统一圆角内边距 */
+input, textarea, select {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #ffd6e3;
+  border-radius: 12px;
+  font-size: 16px;
+  outline: none;
+  background: #fff;
+}
+textarea {
+  resize: none;
+}
+.form-row {
+  margin-bottom: 18px;
+}
+.form-row label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+/* 按钮全局统一样式 无错位 */
+.btn, .submit-btn, .loc-btn, .upload-btn, .rtc-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  font-size: 17px;
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+.btn:active, .submit-btn:active, .loc-btn:active {
+  opacity: 0.85;
+}
+
+/* 底部导航栏固定底部 均分宽度 */
 .bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 80px;
-    background: #fff;
-    display: flex;
-    padding: 8px 0;
-    border-top: 1px solid #eee;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 88px;
+  background: #ffffff;
+  display: flex;
+  padding: 10px 0;
+  border-top: 1px solid #eeeeee;
 }
 .nav-item {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    font-size: 14px;
-    color: #888;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #888888;
 }
 .nav-item.active {
-    color: #e86892;
+  color: #e86892;
 }
 .nav-icon {
-    width: 32px;
-    height: 32px;
+  width: 34px;
+  height: 34px;
 }
-.jump-link:active {
-    transform: scale(0.96);
-    transition: 0.1s;
+
+/* 列表条目卡片统一 */
+.diary-item, .memory-item, .record-item {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 14px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
